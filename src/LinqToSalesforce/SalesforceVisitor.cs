@@ -11,16 +11,22 @@ namespace LinqToSalesforce
     public class SalesforceVisitor : ExpressionVisitor
     {
         public QueryTypeEnum QueryType = QueryTypeEnum.List;
-
-        private List<string> WhereExpression = new List<string>();
-        private List<string> OrderByExpression = new List<string>();
-        private List<string> SelectByExpression = new List<string>();
-        private Type ElementType;
-        private int? limit;
-        private int Limit
+        protected List<string> WhereExpression = new List<string>();
+        protected List<string> OrderByExpression = new List<string>();
+        protected List<string> SelectByExpression = new List<string>();
+        protected Type ElementType;
+        protected int? limit;
+        protected int Limit
         {
             get { return limit ?? 0; }
             set { if (limit == null) limit = value; }
+        }
+        protected SelectTypeEnum SelectType;
+
+        public SalesforceVisitor() { }
+        public SalesforceVisitor(SelectTypeEnum selectType)
+        {
+            SelectType = selectType;
         }
 
         internal string Translate(Expression expression)
@@ -39,7 +45,8 @@ namespace LinqToSalesforce
             }
             else
             {
-                selectString = SelectByExpression.Any() ? string.Join(",", SelectByExpression.ToArray()) : "Id";
+                TranslateSelect();
+                selectString = string.Join(",", SelectByExpression.ToArray());
             }
             sb.AppendFormat("SELECT {0} FROM {1}", selectString, ElementType.Name);
             if (WhereExpression.Any())
@@ -55,6 +62,42 @@ namespace LinqToSalesforce
                 sb.AppendFormat(" LIMIT {0}", Limit.ToString());
             }
             return sb.ToString();
+        }
+
+        private void TranslateSelect()
+        {
+            //if SelectAll, get all property names
+            if (SelectType == SelectTypeEnum.SelectAllAndUseAttachModel ||
+                SelectType == SelectTypeEnum.SelectAllAndUseReplaceModel)
+            {
+                //if ReplaceModel and has selected, return
+                if (SelectType == SelectTypeEnum.SelectAllAndUseReplaceModel &&
+                   SelectByExpression.Any())
+                { return; }
+
+                //if AttachModel or has not selected, add all properties
+                foreach (var property in SalesforceObjectHelper.GetAllPropertyNames(ElementType))
+                {
+                    if (SelectByExpression.Contains(property)) { continue; }
+                    SelectByExpression.Add(property);
+                }
+            }
+
+            if (SelectType == SelectTypeEnum.SelectIdAndUseAttachModel ||
+                SelectType == SelectTypeEnum.SelectIdAndUseReplaceModel)
+            {
+                //if ReplaceModel and has selected, return
+                if (SelectType == SelectTypeEnum.SelectIdAndUseReplaceModel &&
+                    SelectByExpression.Any())
+                { return; }
+
+                //if AttachModel or has not selected, add "id"
+                foreach (var property in SalesforceObjectHelper.GetAllPropertyNames(ElementType))
+                {
+                    if (SelectByExpression.Contains("Id")) { continue; }
+                    SelectByExpression.Add("Id");
+                }
+            }
         }
 
         protected override Expression VisitMethodCall(MethodCallExpression m)

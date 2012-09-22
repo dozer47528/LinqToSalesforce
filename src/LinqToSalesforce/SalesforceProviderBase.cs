@@ -10,9 +10,16 @@ namespace LinqToSalesforce
 {
     public abstract class SalesforceProviderBase<T> : QueryProvider
     {
+        private SelectTypeEnum selectType = SelectTypeEnum.SelectIdAndUseAttachModel;
+        public SelectTypeEnum SelectType
+        {
+            get { return selectType; }
+            set { selectType = value; }
+        }
+
         public override object Execute(Expression expression)
         {
-            var visitor = new SalesforceVisitor();
+            var visitor = new SalesforceVisitor(SelectType);
             var cmd = visitor.Translate(PartialEvaluator.Eval(expression));
             switch (visitor.QueryType)
             {
@@ -32,13 +39,12 @@ namespace LinqToSalesforce
                     return GetEnumerable(cmd);
             }
         }
-
         protected abstract int GetCount(string cmd);
         protected abstract IEnumerable<T> GetEnumerable(string cmd);
 
         public string ToString(Expression expression)
         {
-            var visitor = new SalesforceVisitor();
+            var visitor = new SalesforceVisitor(SelectType);
             return visitor.Translate(PartialEvaluator.Eval(expression));
         }
     }

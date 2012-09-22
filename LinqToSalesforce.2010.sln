@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToSalesforce", "src\LinqToSalesforce\LinqToSalesforce.csproj", "{521936F1-70F2-4F11-A1E7-F437947AA49C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToSalesforce.Demo", "src\LinqToSalesforce.Demo\LinqToSalesforce.Demo.csproj", "{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToSalesforce.Test", "src\LinqToSalesforce.Test\LinqToSalesforce.Test.csproj", "{815F8BD6-CC59-4832-942F-07D168FD3E51}"
 EndProject
 Global
@@ -27,16 +25,6 @@ Global
 		{521936F1-70F2-4F11-A1E7-F437947AA49C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{521936F1-70F2-4F11-A1E7-F437947AA49C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{521936F1-70F2-4F11-A1E7-F437947AA49C}.Release|x86.ActiveCfg = Release|Any CPU
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Debug|x86.ActiveCfg = Debug|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Debug|x86.Build.0 = Debug|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Release|Any CPU.ActiveCfg = Release|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Release|Mixed Platforms.Build.0 = Release|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Release|x86.ActiveCfg = Release|x86
-		{BBDC9C02-5AEB-400D-9D1C-6F8CA597FCE7}.Release|x86.Build.0 = Release|x86
 		{815F8BD6-CC59-4832-942F-07D168FD3E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{815F8BD6-CC59-4832-942F-07D168FD3E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{815F8BD6-CC59-4832-942F-07D168FD3E51}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

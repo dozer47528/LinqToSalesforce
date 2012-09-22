@@ -49,11 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\QueryType.cs" />
+    <Compile Include="Entity\SelectType.cs" />
     <Compile Include="Helper\ExpressionVisitor.cs" />
     <Compile Include="Helper\PartialEvaluator.cs" />
     <Compile Include="Helper\Query.cs" />
     <Compile Include="Helper\QueryProvider.cs" />
     <Compile Include="Helper\ReflectionExtensions.cs" />
+    <Compile Include="Helper\SalesforceObjectHelper.cs" />
     <Compile Include="Helper\TypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesforceProviderBase.cs" />
