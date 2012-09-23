@@ -20,7 +20,10 @@ namespace LinqToSalesforce.Test.SalesforceQuery
         [TestMethod]
         public void WhereTest()
         {
-            var result = Query<Contract>().Where(c => c.CreatedDate > DateTime.Now.AddMonths(-1)).ToList();
+            var result = Query<Contract>()
+                .Where(c => c.CreatedDate > DateTime.Now.AddMonths(-1))
+                .ToList();
+
             Assert.IsTrue(result.Any());
         }
 
@@ -33,26 +36,6 @@ namespace LinqToSalesforce.Test.SalesforceQuery
         #endregion
 
         #region First
-        [TestMethod]
-        public void SelectTest()
-        {
-            var result = Query<Contract>().Select(c => new Contract
-            {
-                Id = c.Id,
-                IsDeleted = c.IsDeleted,
-                Account = new Account
-                {
-                    Name = c.Account.Name,
-                    Owner = new User { Name = c.Account.Owner.Name },
-                },
-            }).FirstOrDefault();
-
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.IsDeleted);
-            Assert.IsNotNull(result.Account.Name);
-            Assert.IsNotNull(result.Account.Owner.Name);
-            Assert.IsNull(result.Account.Owner.Phone);
-        }
 
         [TestMethod]
         public void First_NoneTest()
@@ -214,6 +197,38 @@ namespace LinqToSalesforce.Test.SalesforceQuery
         {
             var result = Query<User>().Count();
             Assert.IsTrue(result > 0);
+        }
+        #endregion
+
+        #region Select
+        [TestMethod]
+        public void SelectTest()
+        {
+            var user = Query<User>()
+                .Select(u => new User { Name = u.Name })
+                .FirstOrDefault();
+            Assert.IsNotNull(user.Name);
+        }
+
+        [TestMethod]
+        public void SelectRelatedTest()
+        {
+            var result = Query<Contract>().Select(c => new Contract
+            {
+                Id = c.Id,
+                IsDeleted = c.IsDeleted,
+                Account = new Account
+                {
+                    Name = c.Account.Name,
+                    Owner = new User { Name = c.Account.Owner.Name },
+                },
+            }).FirstOrDefault();
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.IsDeleted);
+            Assert.IsNotNull(result.Account.Name);
+            Assert.IsNotNull(result.Account.Owner.Name);
+            Assert.IsNull(result.Account.Owner.Phone);
         }
         #endregion
 
