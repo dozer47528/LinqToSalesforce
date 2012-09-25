@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LinqToSalesforce.Test.force.com;
 using System.Linq;
 using LinqToSalesforce.Entity;
+using LinqToSalesforce.Toolkit;
 
 namespace LinqToSalesforce.Test.SalesforceQuery
 {
@@ -10,9 +11,10 @@ namespace LinqToSalesforce.Test.SalesforceQuery
     public class SalesforceQueryTest
     {
         #region HelpMethod
+        protected SalesforceHelper Helper = new SalesforceHelper();
         protected SalesforceQuery<T> Query<T>(SelectTypeEnum selectType = SelectTypeEnum.SelectIdAndUseAttachModel) where T : sObject
         {
-            return new SalesforceQuery<T>(new SalesforceProviderSample<T> { SelectType = selectType });
+            return Helper.Query<T>(selectType);
         }
         #endregion
 

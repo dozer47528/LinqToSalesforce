@@ -70,7 +70,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SalesforceQuery\SalesforceProviderSample.cs" />
+    <Compile Include="SalesforceQuery\SalesforceHelper.cs" />
+    <Compile Include="SalesforceQuery\SalesforceProvider.cs" />
     <Compile Include="SalesforceQuery\SalesforceQueryTest.cs" />
     <Compile Include="Web References\force.com\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -182,9 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="E:\Desktop\enterprise.wsdl">
